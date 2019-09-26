@@ -6,19 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".FacilityManagerHomeScreen">
 
-<ImageButton
-    android:id="@+id/imageButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.955"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.023"
-    app:srcCompat="@android:drawable/ic_lock_power_off" />
-
-<TextView
+    <TextView
     android:id="@+id/textView8"
     android:layout_width="380dp"
     android:layout_height="110dp"

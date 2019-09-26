@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Facility Reservation System</string>
     <string name="action_logout">Logout</string>
+    <string name="view_profile">View Profile</string>
 </resources>
