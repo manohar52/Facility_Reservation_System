@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import model.SysUser;
 
@@ -17,6 +20,15 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility_manager_home_screen);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String username = settings.getString("username","");
+        currSysUser = SysUser.getUser(username,getApplicationContext());
+
+        Intent intent = getIntent();
+//        String username = intent.getStringExtra("username");
+        TextView textv = findViewById(R.id.etusername);
+
+        textv.append(username);
     }
     private SysUser currSysUser;
     @Override
@@ -26,6 +38,7 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
         inflater.inflate(R.menu.action_bar, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

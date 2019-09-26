@@ -45,8 +45,10 @@ public class LoginActivity extends AppCompatActivity {
                     switch (currUser.getRole()){
                         case "AD":
                             intent = new Intent(getApplicationContext(), AdminHomeScreen.class);
+                            break;
                         case "UR":
                             intent = new Intent(getApplicationContext(), UserHomeScreen.class);
+                            break;
                         case "FM":
                             intent = new Intent(getApplicationContext(), FacilityManagerHomeScreen.class);
                             break;

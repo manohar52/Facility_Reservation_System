@@ -8,20 +8,20 @@ tools:context=".UserHomeScreen">
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="166dp"
-        android:layout_height="37dp"
+        android:layout_width="229dp"
+        android:layout_height="33dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:text="Welcome User"
+        android:text="Welcome Maverick!"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintVertical_bias="0.084" />
 
     <Button
         android:id="@+id/button"
@@ -85,12 +85,16 @@ tools:context=".UserHomeScreen">
 
     <TextView
         android:id="@+id/etusername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:text="Username: "
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.559"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintVertical_bias="0.227" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
