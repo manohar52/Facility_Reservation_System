@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         final EditText username = (EditText) findViewById(R.id.etusername);
         final EditText password = (EditText) findViewById(R.id.password);
 
@@ -40,11 +39,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
+            Intent intent;
             boolean status = currUser.login(password.getText().toString());
                 if(status == true){ //Login Successful
-                    Intent intent = new Intent(getApplicationContext(), UserHomeScreen.class);
-                    intent.putExtra("username",username.getText().toString());
-
+                    switch (currUser.getRole()){
+                        case "AD":
+                            intent = new Intent(getApplicationContext(), AdminHomeScreen.class);
+                        case "UR":
+                            intent = new Intent(getApplicationContext(), UserHomeScreen.class);
+                        case "FM":
+                            intent = new Intent(getApplicationContext(), FacilityManagerHomeScreen.class);
+                            break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + currUser.getRole());
+                    }
+                    if(intent != null) {
+                        intent.putExtra("username", username.getText().toString());
+                    }
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "No user found", Toast.LENGTH_SHORT);

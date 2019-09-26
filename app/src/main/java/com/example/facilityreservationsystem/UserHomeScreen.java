@@ -48,7 +48,7 @@ public class UserHomeScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
 //        String username = intent.getStringExtra("username");
-        TextView textv = findViewById(R.id.welc);
+        TextView textv = findViewById(R.id.etusername);
 
         textv.append("-"+currSysUser.getRole()+"-"+username);
     }
