@@ -30,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final EditText username = (EditText) findViewById(R.id.etusername);
-        final EditText password = (EditText) findViewById(R.id.password);
+        final EditText username = findViewById(R.id.etusername);
+        final EditText password = findViewById(R.id.password);
 
-        final Button loginButton = (Button) findViewById(R.id.loginbtn);
+        final Button loginButton = findViewById(R.id.loginbtn);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
             Intent intent;
             boolean status = currUser.login(password.getText().toString());
-                if(status == true){ //Login Successful
+                if(status){ //Login Successful
                     switch (currUser.getRole()){
                         case "AD":
                             intent = new Intent(getApplicationContext(), AdminHomeScreen.class);
@@ -55,9 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                         default:
                             throw new IllegalStateException("Unexpected value: " + currUser.getRole());
                     }
-                    if(intent != null) {
-                        intent.putExtra("username", username.getText().toString());
-                    }
+                    intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "No user found", Toast.LENGTH_SHORT);

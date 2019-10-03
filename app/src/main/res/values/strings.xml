@@ -2,5 +2,19 @@
     <string name="app_name">Facility Reservation System</string>
     <string name="action_logout">Logout</string>
     <string name="view_profile">View Profile</string>
+    <string name="username">Username:</string>
+    <string name="welc_msg_admin">Welcome Admin</string>
+    <string name="welc_msg_fm">Welcome Facility Manager</string>
+    <string name="func_view_profile">View Profile</string>
+    <string name="func_search_user">Search For User</string>
+    <string name="func_search_facility">Search for Facility</string>
+    <string name="func_view_reservation">View Reservations Listing</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="func_login">LogIn</string>
+    <string name="welc_mav">Welcome Maverick</string>
+    <string name="func_request_reservation">Request Reservation</string>
+    <string name="func_noshow_vio">View My No Shows and Violations</string>
+    <string name="view_my_res">View My Reservations</string>
 
 </resources>

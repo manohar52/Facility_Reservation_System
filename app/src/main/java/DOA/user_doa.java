@@ -9,7 +9,6 @@ import DatabaseHelper.DatabaseHelper;
 public class user_doa {
     private static user_doa ourInstance;
     private DatabaseHelper dbhelper;
-    private Context context;
 
     public static user_doa getInstance(Context context) {
         if(ourInstance == null){
@@ -19,7 +18,6 @@ public class user_doa {
     }
 
     private user_doa(Context context) {
-        this.context = context;
         dbhelper = DatabaseHelper.getInstance(context, SQLiteDatabase.OPEN_READWRITE);
     }
 

@@ -16,7 +16,6 @@ import model.SysUser;
 
 public class UserHomeScreen extends AppCompatActivity {
 
-    private SysUser currSysUser;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -44,7 +43,7 @@ public class UserHomeScreen extends AppCompatActivity {
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String username = settings.getString("username","");
-        currSysUser = SysUser.getUser(username,getApplicationContext());
+        SysUser currSysUser = SysUser.getUser(username, getApplicationContext());
 
         Intent intent = getIntent();
 //        String username = intent.getStringExtra("username");

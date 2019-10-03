@@ -22,7 +22,7 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_facility_manager_home_screen);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String username = settings.getString("username","");
-        currSysUser = SysUser.getUser(username,getApplicationContext());
+        SysUser currSysUser = SysUser.getUser(username, getApplicationContext());
 
         Intent intent = getIntent();
 //        String username = intent.getStringExtra("username");
@@ -30,7 +30,7 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
 
         textv.append(username);
     }
-    private SysUser currSysUser;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar

@@ -19,7 +19,7 @@ public class SysUser {
     private String vehicleno;
     private int parking;
     private String password;
-    private static Hashtable<String,SysUser> users = new Hashtable<String,SysUser>();
+    private static Hashtable<String,SysUser> users = new Hashtable<>();
     private static Context ct;
 
     private SysUser(String username){
@@ -35,14 +35,14 @@ public class SysUser {
        }
        return users.get(username);
    }
-    public Cursor authenticate(String username, String password) {
+    private Cursor authenticate(String username, String password) {
         user_doa udao = user_doa.getInstance(ct);
         Cursor c = udao.getUserData(username);
         if(c == null){
             return null;
         }
         String pwd = c.getString(c.getColumnIndex("password"));
-        if (pwd.equals(password) == true){
+        if (pwd.equals(password)){
             //authentication successful
             return c;
         }else{
@@ -65,12 +65,10 @@ public class SysUser {
         boolean status;
         Cursor c = this.authenticate(this.username, password);
         if (c == null){
-            status = false;
             users.remove(this.username);
 
-            return status;
+            return false;
         }else{
-            status = true;
 //            this.setUsername(c.getString(c.getColumnIndex("username")));
             this.setFname(c.getString(c.getColumnIndex("fname")));
             this.setFname(c.getString(c.getColumnIndex("lname")));
@@ -81,7 +79,7 @@ public class SysUser {
             this.setParking(c.getInt(c.getColumnIndex("parkingpermit")));
             this.setPassword(c.getString(c.getColumnIndex("password")));
             this.setSessionforUser();
-            return status;
+            return true;
         }
    }
     public String getUsername() {
@@ -144,7 +142,7 @@ public class SysUser {
         return password;
     }
     public void setPassword(String Password){
-        this.password = password;
+        this.password = Password;
     }
 
 }
