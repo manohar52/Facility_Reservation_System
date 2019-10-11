@@ -1,4 +1,9 @@
 <resources>
+        <string-array name="roles">
+            <item>User</item>
+            <item>Facility Manager</item>
+            <item>Admin</item>
+        </string-array>
     <string name="app_name">Facility Reservation System</string>
     <string name="action_logout">Logout</string>
     <string name="view_profile">View Profile</string>
@@ -16,5 +21,12 @@
     <string name="func_request_reservation">Request Reservation</string>
     <string name="func_noshow_vio">View My No Shows and Violations</string>
     <string name="view_my_res">View My Reservations</string>
+    <string name="lname">Last Name</string>
+    <string name="role">Role</string>
+    <string name="permit">Parking permit</string>
+    <string name="phone">Phone number</string>
+    <string name="fname">First Name</string>
+    <string name="vehicle">Vehicle number</string>
+    <string name="utaid">UTA ID</string>
 
 </resources>

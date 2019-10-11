@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
 
 import DOA.user_doa;
+import errorlog.AppLog;
 
 public class SysUser {
     private String username;
@@ -22,10 +25,11 @@ public class SysUser {
     private static Hashtable<String,SysUser> users = new Hashtable<>();
     private static Context ct;
 
-    private SysUser(String username){
+    protected SysUser(String username){
         this.username = username;
     }
-   public static SysUser getUser(String username, Context context){
+
+    public static SysUser getUser(String username, Context context){
         if (ct == null){
             ct = context;
         }
@@ -82,6 +86,28 @@ public class SysUser {
             return true;
         }
    }
+
+   public boolean register(Hashtable<String, String> regDetails){
+        AppLog log = AppLog.getInstance();
+        user_doa udoa = user_doa.getInstance(ct);
+
+       boolean validUsername = udoa.checkUsername(this.username);
+        if (validUsername == true){
+            long updateStatus = udoa.createUser(regDetails);
+            if (updateStatus != -1){
+                return true;
+            }else{
+                log.addMessage("Error creating user, try again!");
+                return false;
+            }
+        }
+        else{
+            users.remove(this.username);
+            log.addMessage("Username already exists. Try with another username!");
+            return false;
+        }
+   }
+
     public String getUsername() {
         return username;
     }
