@@ -5,12 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
 import DatabaseHelper.DatabaseHelper;
+import model.SysUser;
 
 public class user_doa {
     private static user_doa ourInstance;
@@ -63,7 +65,29 @@ public class user_doa {
             return true;    // valid username
         }
     }
+    public void updateUserProfile(SysUser user){
+//            String username,String password, String fname, String lname, int utaid, String vehicle, int phone, int parking){
 
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        ContentValues cv = new ContentValues();
+        String[] args = { String.valueOf(user.getUsername())};
+
+        cv.put("fname",user.getFname());
+        cv.put("lname",user.getLname());
+        cv.put("utaid",user.getUtaid());
+        cv.put("phone",user.getPhone());
+        cv.put("vehicleno",user.getVehicle());
+        cv.put("parkingpermit",user.getParking());
+        cv.put("password",user.getPassword());
+//        String sqlq = "UPDATE user SET fname = \"" + user.getFname() +
+//                        "\", " +  "lname = \"" + user.getLname()
+//                        + "\" WHERE username = \"" + user.getUsername() +"\"";
+
+//        db.execSQL(sqlq);
+        int ar = db.update("user",cv,"username = ?",args);
+
+    }
     public long createUser(Hashtable<String,String> regDetails){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues cv = new ContentValues();

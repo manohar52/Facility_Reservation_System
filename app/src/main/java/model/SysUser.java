@@ -75,7 +75,7 @@ public class SysUser {
         }else{
 //            this.setUsername(c.getString(c.getColumnIndex("username")));
             this.setFname(c.getString(c.getColumnIndex("fname")));
-            this.setFname(c.getString(c.getColumnIndex("lname")));
+            this.setLname(c.getString(c.getColumnIndex("lname")));
             this.setRole(c.getString(c.getColumnIndex("role")));
             this.setUtaid(c.getInt(c.getColumnIndex("utaid")));
             this.setPhone(c.getInt(c.getColumnIndex("phone")));
@@ -107,6 +107,13 @@ public class SysUser {
             return false;
         }
    }
+
+   public void updateProfile(Context context){
+        user_doa udao = user_doa.getInstance(context);
+//        udao.updateUserProfile(this.username,this.password, this.fname, this.lname, this.utaid, this.vehicleno,this.phone,this.parking);
+            udao.updateUserProfile(this);
+    }
+
 
     public String getUsername() {
         return username;
