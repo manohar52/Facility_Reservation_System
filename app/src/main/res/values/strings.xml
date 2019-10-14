@@ -1,9 +1,9 @@
 <resources>
-        <string-array name="roles">
-            <item>User</item>
-            <item>Facility Manager</item>
-            <item>Admin</item>
-        </string-array>
+    <string-array name="roles">
+        <item>User</item>
+        <item>Facility Manager</item>
+        <item>Admin</item>
+    </string-array>
     <string name="app_name">Facility Reservation System</string>
     <string name="action_logout">Logout</string>
     <string name="view_profile">View Profile</string>
@@ -28,5 +28,6 @@
     <string name="fname">First Name</string>
     <string name="vehicle">Vehicle number</string>
     <string name="utaid">UTA ID</string>
+    <string name="action_previous">Back</string>
 
 </resources>

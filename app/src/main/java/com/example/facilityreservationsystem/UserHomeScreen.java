@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import model.SysUser;
@@ -50,5 +52,16 @@ public class UserHomeScreen extends AppCompatActivity {
         TextView textv = findViewById(R.id.etusername);
 
         textv.append(username);
+
+        final Button btprofile = findViewById(R.id.btprofile);
+        btprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 }
