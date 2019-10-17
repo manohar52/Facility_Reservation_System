@@ -63,5 +63,13 @@ public class UserHomeScreen extends AppCompatActivity {
             }
         });
 
+        final  Button btreqres = findViewById(R.id.btreqres);
+        btreqres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),UserFacilitySearch.class);
+                startActivity(intent);
+            }
+        });
     }
 }

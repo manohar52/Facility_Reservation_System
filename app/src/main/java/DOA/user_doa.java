@@ -66,7 +66,6 @@ public class user_doa {
         }
     }
     public void updateUserProfile(SysUser user){
-//            String username,String password, String fname, String lname, int utaid, String vehicle, int phone, int parking){
 
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -80,11 +79,7 @@ public class user_doa {
         cv.put("vehicleno",user.getVehicle());
         cv.put("parkingpermit",user.getParking());
         cv.put("password",user.getPassword());
-//        String sqlq = "UPDATE user SET fname = \"" + user.getFname() +
-//                        "\", " +  "lname = \"" + user.getLname()
-//                        + "\" WHERE username = \"" + user.getUsername() +"\"";
 
-//        db.execSQL(sqlq);
         int ar = db.update("user",cv,"username = ?",args);
 
     }

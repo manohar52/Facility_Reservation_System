@@ -12,10 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"
-            android:parentActivityName=".UserHomeScreen"/>
-        <activity android:name=".RegisterActivity"
-            android:parentActivityName=".LoginActivity"/>
+        <activity android:name=".AvailableFacilityList"
+            android:parentActivityName=".UserFacilitySearch">
+        </activity>
+        <activity android:name=".UserFacilitySearch" />
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName=".UserHomeScreen" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity" />
         <activity android:name=".FacilityManagerHomeScreen" />
         <activity android:name=".AdminHomeScreen" />
         <activity android:name=".UserHomeScreen" />

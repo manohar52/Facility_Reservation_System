@@ -66,14 +66,12 @@ public class SysUser {
         editor.commit();
     }
    public boolean login(String password){
-        boolean status;
+
         Cursor c = this.authenticate(this.username, password);
         if (c == null){
             users.remove(this.username);
-
             return false;
         }else{
-//            this.setUsername(c.getString(c.getColumnIndex("username")));
             this.setFname(c.getString(c.getColumnIndex("fname")));
             this.setLname(c.getString(c.getColumnIndex("lname")));
             this.setRole(c.getString(c.getColumnIndex("role")));
@@ -110,7 +108,6 @@ public class SysUser {
 
    public void updateProfile(Context context){
         user_doa udao = user_doa.getInstance(context);
-//        udao.updateUserProfile(this.username,this.password, this.fname, this.lname, this.utaid, this.vehicleno,this.phone,this.parking);
             udao.updateUserProfile(this);
     }
 

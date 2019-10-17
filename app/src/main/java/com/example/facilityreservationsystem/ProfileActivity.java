@@ -61,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 currUser.updateProfile(getApplicationContext());
                 finish();
-//                Intent intent = new Intent(getApplicationContext(),)
             }
         });
 
