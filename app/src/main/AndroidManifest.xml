@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AvailableFacilityList"
-            android:parentActivityName=".UserFacilitySearch">
-        </activity>
+        <activity android:name=".FacilityDetailForUser"
+            android:parentActivityName=".AvailableFacilityList"></activity>
+        <activity
+            android:name=".AvailableFacilityList"
+            android:parentActivityName=".UserFacilitySearch"></activity>
         <activity android:name=".UserFacilitySearch" />
         <activity
             android:name=".ProfileActivity"

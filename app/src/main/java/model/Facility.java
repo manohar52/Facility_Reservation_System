@@ -9,12 +9,13 @@ import DOA.facility_doa;
 
 public class Facility {
     private String name;
-    private String ftype;
-    private String fdesc;
-    private float interval;
-    private int duration;
-    private String venue;
+    private FacilityType ftype;
+    private int availability;
+    private String status;
+    private String floor;
+    private String wing;
     private int deposit;
+
     private static Context ct;
     private static Hashtable<String,Facility> facilities = new Hashtable<String,Facility>();
 
@@ -47,25 +48,35 @@ public class Facility {
         }
         return facilities.get(name);
     }
-    private void loadDetails(Cursor c){
-        this.setFtype(c.getString(c.getColumnIndex("ftype")));
-        this.setFdesc(c.getString(c.getColumnIndex("fdesc")));
-        this.setInterval(c.getFloat(c.getColumnIndex("interval")));
-        this.setDuration(c.getInt(c.getColumnIndex("duration")));
-        this.setVenue(c.getString(c.getColumnIndex("venue")));
+    private void loadFacilityDetails(Cursor c){
+
         this.setDeposit(c.getInt(c.getColumnIndex("deposit")));
     }
     private void loadDetails(){
         facility_doa fdoa = facility_doa.getInstance(ct);
         Cursor c = fdoa.getFacilityData(this.name);
 
-        this.setFtype(c.getString(c.getColumnIndex("ftype")));
-        this.setFdesc(c.getString(c.getColumnIndex("fdesc")));
-        this.setInterval(c.getFloat(c.getColumnIndex("interval")));
-        this.setDuration(c.getInt(c.getColumnIndex("duration")));
-        this.setVenue(c.getString(c.getColumnIndex("venue")));
+        FacilityType ft = FacilityType.getInstance(c.getString(c.getColumnIndex("fdesc")),ct);
+        this.setFtype(ft);
+
+        this.setAvailability(c.getInt(c.getColumnIndex("availability")));
+        this.setStatus(c.getString(c.getColumnIndex("status")));
+        this.setFloor(c.getString(c.getColumnIndex("floor")));
+        this.setWing(c.getString(c.getColumnIndex("wing")));
         this.setDeposit(c.getInt(c.getColumnIndex("deposit")));
     }
+    private void loadDetails(Cursor c){
+        FacilityType ft = FacilityType.getInstance(c.getString(c.getColumnIndex("fdesc")),ct);
+        this.setFtype(ft);
+
+        this.setAvailability(c.getInt(c.getColumnIndex("availability")));
+        this.setStatus(c.getString(c.getColumnIndex("status")));
+        this.setFloor(c.getString(c.getColumnIndex("floor")));
+        this.setWing(c.getString(c.getColumnIndex("wing")));
+        this.setDeposit(c.getInt(c.getColumnIndex("deposit")));
+    }
+
+
 
     public boolean isAvailable(String date, String time){
 
@@ -87,43 +98,43 @@ public class Facility {
         this.deposit = deposit;
     }
 
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public float getInterval() {
-        return interval;
-    }
-
-    public void setInterval(float interval) {
-        this.interval = interval;
-    }
-
-    public String getFdesc() {
-        return fdesc;
-    }
-
-    public void setFdesc(String fdesc) {
-        this.fdesc = fdesc;
-    }
-
-    public String getFtype() {
+    public FacilityType getFtype() {
         return ftype;
     }
 
-    public void setFtype(String ftype) {
+    public void setFtype(FacilityType ftype) {
         this.ftype = ftype;
+    }
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getWing() {
+        return wing;
+    }
+
+    public void setWing(String wing) {
+        this.wing = wing;
     }
 }

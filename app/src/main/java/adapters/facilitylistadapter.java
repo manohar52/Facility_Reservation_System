@@ -47,7 +47,7 @@ public class facilitylistadapter extends RecyclerView.Adapter<facilitylistadapte
     public void onBindViewHolder(@NonNull facilitylistadapter.MyViewHolder holder, int position) {
         Facility facility = facilityList.get(position);
         holder.name.setText(facility.getName());
-        holder.type.setText(facility.getFdesc());
+        holder.type.setText(facility.getFtype().getFdesc());
         holder.deposit.setText(Integer.toString(facility.getDeposit()));
     }
 
