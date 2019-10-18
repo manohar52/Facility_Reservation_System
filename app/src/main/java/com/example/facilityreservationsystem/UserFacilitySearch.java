@@ -29,7 +29,6 @@ import model.Facility;
 import model.FacilityType;
 
 public class UserFacilitySearch extends AppCompatActivity {
-
 //    private String nextSlotTime(String time) throws ParseException {
 //        SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
 //        Date date = df.parse(time);
@@ -137,6 +136,7 @@ public class UserFacilitySearch extends AppCompatActivity {
 
 
                 Intent intent = new Intent(getApplicationContext(),AvailableFacilityList.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("rdate",rDate);
                 bundle.putString("rtime",rTime);

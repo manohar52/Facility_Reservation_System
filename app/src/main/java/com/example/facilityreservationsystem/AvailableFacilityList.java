@@ -39,6 +39,8 @@ public class AvailableFacilityList extends AppCompatActivity {
         final String rTime = bundle.getString("rtime");
         String fdesc = bundle.getString("fdesc");
 
+
+
         final TextView tvdate = findViewById(R.id.tvdate);
         final TextView tvtime = findViewById(R.id.tvtime);
         tvdate.setText(rDate);
@@ -64,8 +66,6 @@ public class AvailableFacilityList extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Facility f = facilitiesCopy.get(position);
-//                TextView tvdate = findViewById(R.id.tvdate);
-//                TextView tvtime = findViewById(R.id.tvtime);
 
                 Intent intent = new Intent(getApplicationContext(),FacilityDetailForUser.class);
                 Bundle bundle = new Bundle();

@@ -59,9 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
                 regDetails.put("parkingpermit",phone.getText().toString());
                 regDetails.put("phone",permit.getText().toString());
 
-                currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
-                boolean validity = currUser.register(regDetails);
+//                currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
+                boolean validity = SysUser.register(regDetails,getApplicationContext());
                 if (validity == true){
+                    currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
                     currUser.login(regDetails.get("password"));   //always returns true becoz new user just registered
                     switch (currUser.getRole()){
                         case "AD":

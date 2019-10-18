@@ -26,33 +26,53 @@ public class SysUser {
     private static Context ct;
 
     protected SysUser(String username){
+        user_doa udao = user_doa.getInstance(ct);
+        Cursor c = udao.getUserData(username);
         this.username = username;
+        this.setFname(c.getString(c.getColumnIndex("fname")));
+        this.setLname(c.getString(c.getColumnIndex("lname")));
+        this.setRole(c.getString(c.getColumnIndex("role")));
+        this.setUtaid(c.getInt(c.getColumnIndex("utaid")));
+        this.setPhone(c.getInt(c.getColumnIndex("phone")));
+        this.setVehicle(c.getString(c.getColumnIndex("vehicleno")));
+        this.setParking(c.getInt(c.getColumnIndex("parkingpermit")));
+        this.setPassword(c.getString(c.getColumnIndex("password")));
     }
 
     public static SysUser getUser(String username, Context context){
         if (ct == null){
             ct = context;
         }
-       if (!users.containsKey(username)){
-           SysUser currUser = new SysUser(username);
-            users.put(username,currUser);
-       }
-       return users.get(username);
+        SysUser currUser;
+        if (!users.containsKey(username)) {
+            user_doa udao = user_doa.getInstance(ct);
+            Cursor c = udao.getUserData(username);
+            String role = c.getString(c.getColumnIndex("role"));
+            if (c == null) {
+                return null;
+            }
+            switch (role) {
+                case "UR":
+                    currUser = new User(username);
+                    break;
+                case "AD":
+                    currUser = new Admin(username);
+                    break;
+                case "FM":
+                    currUser = new FacilityManager(username);
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unexpected value: " + role);
+            }
+        }
+        else {
+            currUser = users.get(username);
+        }
+        return currUser;
+
    }
-    private Cursor authenticate(String username, String password) {
-        user_doa udao = user_doa.getInstance(ct);
-        Cursor c = udao.getUserData(username);
-        if(c == null){
-            return null;
-        }
-        String pwd = c.getString(c.getColumnIndex("password"));
-        if (pwd.equals(password)){
-            //authentication successful
-            return c;
-        }else{
-            return null;
-        }
-    }
+
     private void setSessionforUser(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ct);
         SharedPreferences.Editor editor = settings.edit();
@@ -67,29 +87,22 @@ public class SysUser {
     }
    public boolean login(String password){
 
-        Cursor c = this.authenticate(this.username, password);
-        if (c == null){
-            users.remove(this.username);
-            return false;
-        }else{
-            this.setFname(c.getString(c.getColumnIndex("fname")));
-            this.setLname(c.getString(c.getColumnIndex("lname")));
-            this.setRole(c.getString(c.getColumnIndex("role")));
-            this.setUtaid(c.getInt(c.getColumnIndex("utaid")));
-            this.setPhone(c.getInt(c.getColumnIndex("phone")));
-            this.setVehicle(c.getString(c.getColumnIndex("vehicleno")));
-            this.setParking(c.getInt(c.getColumnIndex("parkingpermit")));
-            this.setPassword(c.getString(c.getColumnIndex("password")));
+        if(this.password.equals(password)){
             this.setSessionforUser();
+            users.put(this.username,this);
             return true;
+        }
+        else{
+            return false;
         }
    }
 
-   public boolean register(Hashtable<String, String> regDetails){
+   public static boolean register(Hashtable<String, String> regDetails,Context ctxt){
+        ct = ctxt;
         AppLog log = AppLog.getInstance();
         user_doa udoa = user_doa.getInstance(ct);
 
-       boolean validUsername = udoa.checkUsername(this.username);
+       boolean validUsername = udoa.checkUsername(regDetails.get("username"));
         if (validUsername == true){
             long updateStatus = udoa.createUser(regDetails);
             if (updateStatus != -1){
@@ -100,7 +113,6 @@ public class SysUser {
             }
         }
         else{
-            users.remove(this.username);
             log.addMessage("Username already exists. Try with another username!");
             return false;
         }

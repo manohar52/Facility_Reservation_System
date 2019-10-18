@@ -3,6 +3,8 @@ package com.example.facilityreservationsystem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -28,11 +30,14 @@ public class FacilityDetailForUser extends AppCompatActivity {
         final TextView tvname = findViewById(R.id.tvname);
         final TextView tvftype = findViewById(R.id.tvftype);
         final TextView tvdeposit = findViewById(R.id.tvdeposit);
+        final Button btreserve = findViewById(R.id.btreserve);
 
         Bundle bundle = getIntent().getExtras();
         String fname = bundle.getString("selectedFacility");
         String resDate = bundle.getString("resDate");
         String resTime = bundle.getString("resTime");
+
+
 
         Facility f = Facility.getInstance(fname,getApplication());
 
@@ -61,6 +66,13 @@ public class FacilityDetailForUser extends AppCompatActivity {
         tvname.setText(f.getName());
         tvftype.setText(f.getFtype().getFdesc());
         tvdeposit.setText("$"+Integer.toString(f.getDeposit()));
+
+        btreserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

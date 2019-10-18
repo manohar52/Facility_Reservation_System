@@ -2,7 +2,7 @@ package model;
 
 public class Reservation {
     private int resId;
-    private SysUser user;
+    private User user;
     private Facility facility;
     private String date;
     private String stime;
@@ -10,7 +10,7 @@ public class Reservation {
     private String noshow;
     private String violation;
 
-    public Reservation(SysUser user,Facility f,String date, String stime, String etime){
+    public Reservation(User user,Facility f,String date, String stime, String etime){
         this.setUser(user);
         this.setFacility(f);
         this.setDate(date);
@@ -26,11 +26,11 @@ public class Reservation {
         this.resId = resId;
     }
 
-    public SysUser getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(SysUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
