@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-<!--    <ScrollView-->
-<!--        android:layout_width="409dp"-->
-<!--        android:layout_height="729dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
     <RelativeLayout
         android:id="@+id/linear"
         android:layout_width="0dp"

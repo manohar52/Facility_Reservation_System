@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
+
 
 import DOA.user_doa;
 import errorlog.AppLog;

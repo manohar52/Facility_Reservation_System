@@ -8,6 +8,12 @@
         <item>Indoor</item>
         <item>Outdoor</item>
     </string-array>
+    <string-array name="cardtype">
+        <item>Amex</item>
+        <item>MasterCard</item>
+        <item>Discover</item>
+        <item>Visa</item>
+    </string-array>
     <string name="app_name">Facility Reservation System</string>
     <string name="action_logout">Logout</string>
     <string name="view_profile">View Profile</string>

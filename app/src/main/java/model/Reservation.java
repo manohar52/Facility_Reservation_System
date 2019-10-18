@@ -1,7 +1,11 @@
 package model;
 
+import android.content.Context;
+
+import DOA.reservation_doa;
+
 public class Reservation {
-    private int resId;
+    private long resId;
     private User user;
     private Facility facility;
     private String date;
@@ -9,8 +13,12 @@ public class Reservation {
     private String etime;
     private String noshow;
     private String violation;
+    private static Context context;
 
-    public Reservation(User user,Facility f,String date, String stime, String etime){
+    public Reservation(Context ct,User user,Facility f,String date, String stime, String etime){
+        if (ct!=null){
+            context = ct;
+        }
         this.setUser(user);
         this.setFacility(f);
         this.setDate(date);
@@ -18,11 +26,11 @@ public class Reservation {
         this.setEtime(etime);
     }
 
-    public int getResId() {
+    public long getResId() {
         return resId;
     }
 
-    public void setResId(int resId) {
+    public void setResId(long resId) {
         this.resId = resId;
     }
 
@@ -80,5 +88,10 @@ public class Reservation {
 
     public void setViolation(String violation) {
         this.violation = violation;
+    }
+
+    public void save() {
+        reservation_doa rdoa = reservation_doa.getInstance(context);
+        this.resId = rdoa.createReservation(this);
     }
 }

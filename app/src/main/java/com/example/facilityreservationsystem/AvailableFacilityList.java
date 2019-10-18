@@ -1,12 +1,15 @@
 package com.example.facilityreservationsystem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import java.util.Set;
 
 import adapters.facilitylistadapter;
 import model.Facility;
+import model.SysUser;
 import recyclerlistener.RecyclerTouchListener;
 
 public class AvailableFacilityList extends AppCompatActivity {
@@ -32,13 +36,27 @@ public class AvailableFacilityList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_facility_list);
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = settings.edit();
+
+        final String rDate,rTime,fdesc;
         recyclerView = (RecyclerView) findViewById(R.id.rvfacility);
 
         Bundle bundle = getIntent().getExtras();
-        final String rDate = bundle.getString("rdate");
-        final String rTime = bundle.getString("rtime");
-        String fdesc = bundle.getString("fdesc");
+        if (bundle!=null) {
+            rDate = bundle.getString("rdate");
+            rTime = bundle.getString("rtime");
+            fdesc = bundle.getString("fdesc");
 
+            editor.putString("rdate", rDate);
+            editor.putString("rtime", rTime);
+            editor.putString("fdesc", fdesc);
+            editor.commit();
+        }else{
+            rDate = settings.getString("rdate","");
+            rTime = settings.getString("rtime","");
+            fdesc = settings.getString("fdesc","");
+        }
 
 
         final TextView tvdate = findViewById(R.id.tvdate);
