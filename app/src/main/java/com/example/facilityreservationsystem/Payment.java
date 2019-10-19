@@ -30,9 +30,9 @@ public class Payment extends AppCompatActivity {
                 Bundle bundle = getIntent().getExtras();
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String username = settings.getString("username"," ");
-                User user = (User) SysUser.getUser(username,getApplicationContext());
-                Facility f = Facility.getInstance(bundle.getString("FACILITY"),getApplicationContext());
-                Reservation reservation = new Reservation(getApplicationContext(),user,f,bundle.getString("DATE"),bundle.getString("STIME"),bundle.getString("ETIME"));
+//                User user = (User) SysUser.getUser(username,getApplicationContext());
+//                Facility f = Facility.getInstance(bundle.getString("FACILITY"),getApplicationContext());
+                Reservation reservation = new Reservation(getApplicationContext(),username,bundle.getString("FACILITY"),bundle.getString("DATE"),bundle.getString("STIME"),bundle.getString("ETIME"));
                 reservation.save();
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Reservation sucessfully created!", Toast.LENGTH_SHORT);

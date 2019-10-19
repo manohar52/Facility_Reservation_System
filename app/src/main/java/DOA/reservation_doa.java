@@ -2,7 +2,9 @@ package DOA;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import DatabaseHelper.DatabaseHelper;
 import model.Reservation;
@@ -25,13 +27,32 @@ public class reservation_doa {
     public long createReservation(Reservation res){
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("username",res.getUser().getUsername());
-        cv.put("fname",res.getFacility().getName());
+        cv.put("username",res.getUsername());
+        cv.put("fname",res.getFacName());
         cv.put("date",res.getDate());
         cv.put("stime",res.getStime());
         cv.put("etime",res.getEtime());
-        long resid = db.insert("user",null,cv);
+        long resid = db.insert("reservation",null,cv);
         return resid;
 
+    }
+
+    public Cursor getReservationsForUser(String username) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"*"};
+        String sqlTables = "reservation";
+
+        qb.setTables(sqlTables);
+        qb.appendWhere("username = \"" + username + "\"");
+        Cursor c = qb.query(db, sqlSelect, null, null,
+                null, null, null);
+        if  (c.getCount() > 0){
+            c.moveToFirst();
+            return c;
+        }else{
+            return null;
+        }
     }
 }
