@@ -80,6 +80,13 @@ public class UserHomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        final Button btnoshow = findViewById(R.id.btnoshow);
+        btnoshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NoShowViolation.class);
+                startActivity(intent);
+            }
+        });
     }
 }
