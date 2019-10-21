@@ -173,15 +173,23 @@ public static Reservation getInstance(long id){
 
         rdoa.updateReservation(this);
     }
-
+    public String getNoshowViolationStatus(){
+            if (this.noshow != null){
+                return "No Show";
+            }else if (this.violation != null){
+                return "Violation";
+            }
+            return null;
+    }
     public void delete(){
         reservation_doa rdoa = reservation_doa.getInstance(context);
         rdoa.deleteReservation(this.getResId());
-        for (int counter = 0; counter < resList.size(); counter++) {
+        for (int counter = 0; counter < resList.size(); counter++)
+        {
             if (this.equals(resList.get(counter))){
                 resList.remove(counter);
                 break;
             }
         }
-        }
+    }
 }
