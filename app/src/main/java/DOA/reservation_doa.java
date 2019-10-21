@@ -6,14 +6,24 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import DatabaseHelper.DatabaseHelper;
+import model.Facility;
 import model.Reservation;
 
 public class reservation_doa {
     private static reservation_doa ourInstance;
+    private static Context ct;
     private DatabaseHelper dbhelper;
     public static reservation_doa getInstance(Context context) {
-
+        if (ct == null){
+            ct = context;
+        }
         if(ourInstance == null){
             ourInstance = new reservation_doa(context);
         }
@@ -54,5 +64,27 @@ public class reservation_doa {
         }else{
             return null;
         }
+    }
+
+    public void updateReservation(Reservation res) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        ContentValues cv = new ContentValues();
+        String[] args = { String.valueOf(res.getResId())};
+
+
+        cv.put("date",(res.getDate()));
+        cv.put("stime",res.getStime());
+        cv.put("etime",res.getEtime());
+        int ar = db.update("reservation",cv,"resid = ?",args);
+    }
+
+    public void deleteReservation(long resId) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] args = { String.valueOf(resId)};
+
+        int ar = db.delete("reservation","resid = ?",args);
     }
 }

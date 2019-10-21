@@ -17,12 +17,15 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
 import adapters.facilitylistadapter;
 import model.Facility;
+import model.Reservation;
 import model.SysUser;
 import recyclerlistener.RecyclerTouchListener;
 
@@ -73,6 +76,32 @@ public class AvailableFacilityList extends AppCompatActivity {
                 facilitiesCopy.add(f);
             }
         }
+
+        Collections.sort(facilitiesCopy, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Facility f1 = (Facility) o1;
+                Facility f2 = (Facility) o2;
+                String fnam1 = f1.getName();
+                String fnam2 = f2.getName();
+
+                char[] ascii1 = fnam1.toCharArray();
+                char[] ascii2 = fnam2.toCharArray();
+                int a1 = 0,a2 = 0;
+                for(char ch:ascii1) {
+                    a1+=(int)ch;
+                }
+                for(char ch:ascii2) {
+                    a2+=(int)ch;
+                }
+                System.out.println(a1);
+                System.out.println(a2);
+                System.out.println(f1.getName().compareTo(f2.getName()));
+                return a1 - a2;
+//                return f1.getName().compareTo(f2.getName());
+            }
+        });
+
         mAdapter = new facilitylistadapter(facilitiesCopy);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);

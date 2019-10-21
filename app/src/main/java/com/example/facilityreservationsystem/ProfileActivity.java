@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -60,6 +62,10 @@ public class ProfileActivity extends AppCompatActivity {
                 currUser.setParking(Integer.parseInt(permit.getText().toString()));
 
                 currUser.updateProfile(getApplicationContext());
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Profile Update!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
                 finish();
             }
         });

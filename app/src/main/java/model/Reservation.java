@@ -3,8 +3,14 @@ package model;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 import DOA.reservation_doa;
@@ -31,7 +37,16 @@ public class Reservation {
         this.setStime(stime);
         this.setEtime(etime);
     }
-
+public static Reservation getInstance(long id){
+    Iterator iter = resList.iterator();
+    while (iter.hasNext()){
+        Reservation r = (Reservation) iter.next();
+        if (r.getResId() == id){
+            return r;
+        }
+    }
+    return null;
+}
     public static List<Reservation> getAllReservations(Context ct,String username){
 
         reservation_doa rdoa = reservation_doa.getInstance(context);
@@ -129,4 +144,44 @@ public class Reservation {
     public void setFacName(String facName) {
         this.facName = facName;
     }
+
+    public void update(String newDate, String newStime) {
+        reservation_doa rdoa = reservation_doa.getInstance(context);
+        this.date = newDate;
+        this.stime = newStime;
+
+
+        SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
+        try {
+            Date temp = df.parse(newStime);
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(temp);
+            String fname = this.getFacName();
+            Facility f = Facility.getInstance(fname,context);
+            float interval = f.getFtype().getInterval();
+            if ( interval < 1){
+                int min = (int)(interval*60);
+                cal.add(Calendar.MINUTE,min);
+            }else{
+                cal.add(Calendar.HOUR, (int) interval);
+            }
+            Date temptime = cal.getTime();
+            this.etime = df.format(temptime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        rdoa.updateReservation(this);
+    }
+
+    public void delete(){
+        reservation_doa rdoa = reservation_doa.getInstance(context);
+        rdoa.deleteReservation(this.getResId());
+        for (int counter = 0; counter < resList.size(); counter++) {
+            if (this.equals(resList.get(counter))){
+                resList.remove(counter);
+                break;
+            }
+        }
+        }
 }
