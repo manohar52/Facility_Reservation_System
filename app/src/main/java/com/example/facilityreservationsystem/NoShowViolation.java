@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +20,7 @@ import java.util.List;
 import adapters.noshowviolationadapter;
 import adapters.userreservationadapter;
 import model.Reservation;
+import recyclerlistener.RecyclerTouchListener;
 
 public class NoShowViolation extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -55,5 +58,23 @@ public class NoShowViolation extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        // row click listener
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Reservation res = resListCopy.get(position);
+
+                Intent intent = new Intent(getApplicationContext(),NoShowViolationDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putLong("RESID", res.getResId());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 }

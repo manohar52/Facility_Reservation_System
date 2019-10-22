@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import model.Facility;
+import model.Reservation;
 
 public class NoShowViolationDetail extends AppCompatActivity {
 
@@ -25,66 +26,36 @@ public class NoShowViolationDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_show_violation_detail);
 
-
-        String etime = null;
-
+        final TextView tvresid = findViewById(R.id.tvresid);
         final TextView tvdate = findViewById(R.id.tvdate);
-        final TextView tvstime = findViewById(R.id.tvstime);
-        final TextView tvetime = findViewById(R.id.tvetime);
-        final TextView tvname = findViewById(R.id.tvname);
+        final TextView tvtime = findViewById(R.id.tvtime);
+        final TextView tvfname = findViewById(R.id.tvfname);
         final TextView tvftype = findViewById(R.id.tvftype);
         final TextView tvdeposit = findViewById(R.id.tvdeposit);
-
+        final TextView tvnsvio = findViewById(R.id.tvnsvio);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = settings.edit();
-        final String fname,resDate,resTime;
+        final String fname,ftype,resDate,resTime,deftype,depo;
         Bundle bundle = getIntent().getExtras();
-        if (bundle!= null){
-            fname = bundle.getString("selectedFacility");
-            resDate = bundle.getString("resDate");
-            resTime = bundle.getString("resTime");
+        if (bundle!= null) {
+            long resid = bundle.getLong("RESID");
+            Reservation res = Reservation.getInstance(resid);
+            resDate = res.getDate();
+            resTime = res.getStime();
+            fname = res.getFacName();
+            Facility f = Facility.getInstance(fname,getApplication());
+            ftype = f.getFtype().getFdesc();
+            depo = Integer.toString(f.getDeposit());
+            deftype = res.getNoshowViolationStatus();
 
-            editor.putString("selectedFacility", fname);
-            editor.putString("resDate", resDate);
-            editor.putString("resTime", resTime);
-            editor.commit();
-        }else{
-            fname = settings.getString("selectedFacility","");
-            resDate = settings.getString("resDate","");
-            resTime = settings.getString("resTime","");
+            tvresid.setText(Long.toString(resid));
+            tvdate.setText(resDate);
+            tvtime.setText(resTime);
+            tvfname.setText(fname);
+            tvftype.setText(ftype);
+            tvdeposit.setText(depo);
+            tvnsvio.setText(deftype);
         }
-
-        Facility f = Facility.getInstance(fname,getApplication());
-
-        tvdate.setText(resDate);
-        tvstime.setText(resTime);
-
-        SimpleDateFormat df = new SimpleDateFormat("hh:mm aa");
-        try {
-            Date temp = df.parse(resTime);
-            Calendar cal = new GregorianCalendar();
-            cal.setTime(temp);
-            float interval = f.getFtype().getInterval();
-            if ( interval < 1){
-                int min = (int)(interval*60);
-                cal.add(Calendar.MINUTE,min);
-            }else{
-                cal.add(Calendar.HOUR, (int) interval);
-            }
-            Date temptime = cal.getTime();
-            etime = df.format(temptime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        tvetime.setText(etime);
-        tvname.setText(f.getName());
-        tvftype.setText(f.getFtype().getFdesc());
-        tvdeposit.setText("$"+Integer.toString(f.getDeposit()));
-
-        final String finalEtime = etime;
-
-
     }
 }
