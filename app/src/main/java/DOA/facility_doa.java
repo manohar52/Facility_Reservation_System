@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import DatabaseHelper.DatabaseHelper;
+import model.Facility;
 import model.SysUser;
 
 public class facility_doa {
@@ -123,6 +124,24 @@ public class facility_doa {
             return c;
         }else{
             return null;
+        }
+    }
+
+    public boolean checkAvailability(Facility facility, String date, String time) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"resid"};
+        String sqlTables = "reservation";
+
+        qb.setTables(sqlTables);
+        qb.appendWhere("fname = \""+facility.getName()+"\" and date = \"" + date + "\" and stime <= \""+time+"\" and etime >= \""+time+"\"");
+        Cursor c = qb.query(db,sqlSelect,null,null,null,null,null,"1");
+        if(c.getCount() > 0){
+            return false;
+        }
+        else{
+            return true;
         }
     }
 }

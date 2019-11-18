@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import model.SysUser;
 
@@ -67,8 +69,18 @@ public class UserHomeScreen extends AppCompatActivity {
         btreqres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String username = settings.getString("username","");
+                SysUser currSysUser = SysUser.getUser(username, getApplicationContext());
+
+                if(currSysUser.getRevoked() == "0"){
                 Intent intent = new Intent(getApplicationContext(),UserFacilitySearch.class);
-                startActivity(intent);
+                startActivity(intent);}
+                else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "You are Revoked!! Cannot make reservations.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
+                }
             }
         });
 

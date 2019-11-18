@@ -54,22 +54,24 @@ public static Reservation getInstance(long id){
 
         if (resList.isEmpty()){
             Cursor c = rdoa.getReservationsForUser(username);
-            do{
-                long resid = c.getLong(c.getColumnIndex("resid"));
-                String fname = c.getString(c.getColumnIndex("fname"));
-                String date = c.getString(c.getColumnIndex("date"));
-                String stime = c.getString(c.getColumnIndex("stime"));
-                String etime = c.getString(c.getColumnIndex("etime"));
-                String ns = c.getString(c.getColumnIndex("noshow"));
-                String vio = c.getString(c.getColumnIndex("violation"));
+            if(c !=null){
+                do{
+                    long resid = c.getLong(c.getColumnIndex("resid"));
+                    String fname = c.getString(c.getColumnIndex("fname"));
+                    String date = c.getString(c.getColumnIndex("date"));
+                    String stime = c.getString(c.getColumnIndex("stime"));
+                    String etime = c.getString(c.getColumnIndex("etime"));
+                    String ns = c.getString(c.getColumnIndex("noshow"));
+                    String vio = c.getString(c.getColumnIndex("violation"));
 
-                Reservation reservation = new Reservation(ct,username,fname,date,stime,etime);
-                reservation.setResId(resid);
-                reservation.setNoshow(ns);
-                reservation.setViolation(vio);
+                    Reservation reservation = new Reservation(ct,username,fname,date,stime,etime);
+                    reservation.setResId(resid);
+                    reservation.setNoshow(ns);
+                    reservation.setViolation(vio);
 
-                resList.add(reservation);
-            }while(c.moveToNext());
+                    resList.add(reservation);
+                }while(c.moveToNext());
+            }
         }
         return resList;
     }

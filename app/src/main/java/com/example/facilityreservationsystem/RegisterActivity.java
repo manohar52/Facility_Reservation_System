@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                 regDetails.put("vehicleno",vehicle.getText().toString());
                 regDetails.put("parkingpermit",phone.getText().toString());
                 regDetails.put("phone",permit.getText().toString());
+                regDetails.put("revoked","0");
 
 //                currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
                 boolean validity = SysUser.register(regDetails,getApplicationContext());
@@ -77,6 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
                         default:
                             throw new IllegalStateException("Unexpected value: " + currUser.getRole());
                     }
+                    Toast toast = Toast.makeText(getApplicationContext(), "Registration Successfull!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
                     intent.putExtra("username", username.getText().toString());
                     startActivity(intent);
                 }else{

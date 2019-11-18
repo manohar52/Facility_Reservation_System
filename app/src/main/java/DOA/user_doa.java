@@ -33,7 +33,7 @@ public class user_doa {
             SQLiteDatabase db = dbhelper.getWritableDatabase();
             SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-            String[] sqlSelect = {"username", "fname", "lname", "role", "utaid", "phone", "vehicleno", "parkingpermit", "password"};
+            String[] sqlSelect = {"*"};
             String sqlTables = "user";
 
             qb.setTables(sqlTables);
@@ -110,5 +110,81 @@ public class user_doa {
         }
         long status = db.insert("user",null,cv);
         return status;
+    }
+
+    public Cursor getUsernamesByLastname(String lname) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        String[] sqlSelect = {"username"};
+        String sqlTables = "user";
+        qb.setTables(sqlTables);
+
+        qb.appendWhere("lname = \"" + lname + "\"");
+        Cursor c = qb.query(db, sqlSelect, null, null,
+                null, null, null);
+        if  (c.getCount() > 0){
+            c.moveToFirst();
+            return c;       //username exists on database
+        }
+        else{
+            return null;    // valid username
+        }
+    }
+
+    public void updateUserRole(String uname, String newRole) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        ContentValues cv = new ContentValues();
+        String[] args = { uname };
+
+        cv.put("role",newRole);
+        int ar = db.update("user",cv,"username = ?",args);
+    }
+
+    public void revokeUser(String uname) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        ContentValues cv = new ContentValues();
+        String[] args = { uname };
+
+        cv.put("revoked","1");
+        int ar = db.update("user",cv,"username = ?",args);
+    }
+
+    public int getNoOfNoshows(SysUser sysUser) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"*"};
+        String sqlTables = "reservation";
+
+        qb.setTables(sqlTables);
+        qb.appendWhere("username = \"" + sysUser.getUsername() + "\" and noshow = 1");
+        Cursor c = qb.query(db, sqlSelect, null, null,
+                null, null, null);
+        if(c !=null) {
+            return c.getCount();
+        }else{
+            return 0;
+        }
+    }
+
+
+    public int getNoOfViolations(SysUser sysUser) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlSelect = {"*"};
+        String sqlTables = "reservation";
+
+        qb.setTables(sqlTables);
+        qb.appendWhere("username = \"" + sysUser.getUsername() + "\" and violation = 1");
+        Cursor c = qb.query(db, sqlSelect, null, null,
+                null, null, null);
+        if(c !=null) {
+            return c.getCount();
+        }else{
+            return 0;
+        }
     }
 }

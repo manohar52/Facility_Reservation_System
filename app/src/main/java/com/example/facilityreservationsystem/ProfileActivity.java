@@ -63,10 +63,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                 currUser.updateProfile(getApplicationContext());
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Profile Update!", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                finish();
+//                finish();
             }
         });
 

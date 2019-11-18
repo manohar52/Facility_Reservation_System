@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 
 import DOA.user_doa;
@@ -21,8 +23,10 @@ public class SysUser {
     private String vehicleno;
     private int parking;
     private String password;
+    private String revoked;
+
     private static Hashtable<String,SysUser> users = new Hashtable<>();
-    private static Context ct;
+    protected static Context ct;
 
     protected SysUser(String username){
         user_doa udao = user_doa.getInstance(ct);
@@ -36,6 +40,7 @@ public class SysUser {
         this.setVehicle(c.getString(c.getColumnIndex("vehicleno")));
         this.setParking(c.getInt(c.getColumnIndex("parkingpermit")));
         this.setPassword(c.getString(c.getColumnIndex("password")));
+        this.setRevoked(c.getString(c.getColumnIndex("revoked")));
     }
 
     public static SysUser getUser(String username, Context context){
@@ -72,6 +77,20 @@ public class SysUser {
 
    }
 
+
+    public static List<SysUser> getUsersByLastName(String lname, Context ct) {
+        List<SysUser> usernames = new ArrayList<>();
+        user_doa udoa = user_doa.getInstance(ct);
+        Cursor c = udoa.getUsernamesByLastname(lname);
+        do {
+            String uname = c.getString(c.getColumnIndex("username"));
+            SysUser u = SysUser.getUser(uname,ct);
+            usernames.add(u);
+        }
+        while (c.moveToNext());
+        return usernames;
+    }
+
     private void setSessionforUser(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ct);
         SharedPreferences.Editor editor = settings.edit();
@@ -95,7 +114,17 @@ public class SysUser {
             return false;
         }
    }
-
+public String getRoleDesc(){
+        switch (this.role){
+            case "AD":
+                return "Admin";
+            case "UR":
+                return "User";
+            case "FM":
+                return "Facility Manager";
+        }
+    return null;
+}
    public static boolean register(Hashtable<String, String> regDetails,Context ctxt){
         ct = ctxt;
         AppLog log = AppLog.getInstance();
@@ -186,4 +215,21 @@ public class SysUser {
         this.password = Password;
     }
 
+    public String getRevoked() {
+        return revoked;
+    }
+
+    public void setRevoked(String revoked) {
+        this.revoked = revoked;
+    }
+
+    public int getNoOfNoShows() {
+        user_doa udoa = user_doa.getInstance(ct);
+        return udoa.getNoOfNoshows(this);
+    }
+
+    public int getNoOfViolations() {
+        user_doa udoa = user_doa.getInstance(ct);
+        return udoa.getNoOfViolations(this);
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import errorlog.AppLog;
 import model.SysUser;
 
 
@@ -51,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent;
             boolean status = currUser.login(password.getText().toString());
                 if(status){ //Login Successful
+                    Toast toast = Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
                     switch (currUser.getRole()){
                         case "AD":
                             intent = new Intent(getApplicationContext(), AdminHomeScreen.class);

@@ -12,13 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".NoShowViolation"
-            android:parentActivityName=".UserHomeScreen"></activity>
-        <activity android:name=".NoShowViolationDetail"
-            android:parentActivityName=".NoShowViolation"></activity>
-        <activity android:name=".ReservationDetail"
-            android:parentActivityName=".UserHomeScreen"></activity>
+        <activity android:name=".AdminUserDetail"
+            android:parentActivityName=".AdminUserList"></activity>
+        <activity android:name=".AdminUserList"
+            android:parentActivityName=".AdminSearchUser"/>
+        <activity android:name=".AdminSearchUser"
+            android:parentActivityName=".AdminHomeScreen"/>
+        <activity
+            android:name=".NoShowViolation"
+            android:parentActivityName=".UserHomeScreen" />
+        <activity
+            android:name=".NoShowViolationDetail"
+            android:parentActivityName=".NoShowViolation" />
+        <activity
+            android:name=".ReservationDetail"
+            android:parentActivityName=".UserHomeScreen" />
         <activity
             android:name=".UserReservationList"
             android:parentActivityName=".UserHomeScreen" />

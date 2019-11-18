@@ -41,6 +41,8 @@ public class ReservationDetail extends AppCompatActivity {
             Facility f = Facility.getInstance(fname,getApplicationContext());
             String ftype = f.getFtype().getFdesc();
 
+            tvfname.setText(fname);
+
             tvresid.setText(String.valueOf(res.getResId()));
             tvftype.setText(ftype);
             tvdeposit.setText(String.valueOf(f.getDeposit()));
@@ -72,8 +74,8 @@ public class ReservationDetail extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "Reservation Modified!", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
-                Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
+//                startActivity(intent);
             }
         });
     }

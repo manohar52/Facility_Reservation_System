@@ -79,8 +79,13 @@ public class Facility {
 
 
     public boolean isAvailable(String date, String time){
-
-        return true;
+        facility_doa fdoa = facility_doa.getInstance(ct);
+        if(fdoa.checkAvailability(this, date, time)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public String getName() {
         return name;

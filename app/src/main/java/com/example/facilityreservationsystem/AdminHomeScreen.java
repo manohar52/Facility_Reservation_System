@@ -42,6 +42,15 @@ public class AdminHomeScreen extends AppCompatActivity {
 
             }
         });
+
+        final Button btsearch = findViewById(R.id.btsearch);
+        btsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AdminSearchUser.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
