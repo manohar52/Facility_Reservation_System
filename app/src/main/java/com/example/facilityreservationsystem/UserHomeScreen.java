@@ -73,7 +73,7 @@ public class UserHomeScreen extends AppCompatActivity {
                 String username = settings.getString("username","");
                 SysUser currSysUser = SysUser.getUser(username, getApplicationContext());
 
-                if(currSysUser.getRevoked() == "0"){
+                if(currSysUser.getRevoked().equals("0")){
                 Intent intent = new Intent(getApplicationContext(),UserFacilitySearch.class);
                 startActivity(intent);}
                 else{

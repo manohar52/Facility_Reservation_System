@@ -76,6 +76,8 @@ public class reservation_doa {
         cv.put("date",(res.getDate()));
         cv.put("stime",res.getStime());
         cv.put("etime",res.getEtime());
+        cv.put("noshow",res.getNoshow());
+        cv.put("violation",res.getViolation());
         int ar = db.update("reservation",cv,"resid = ?",args);
     }
 
@@ -86,5 +88,44 @@ public class reservation_doa {
         String[] args = { String.valueOf(resId)};
 
         int ar = db.delete("reservation","resid = ?",args);
+    }
+
+    public Cursor getReservationsForFM(String rDate, String rTime, String fdesc, String uname) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String query;
+        String[] whereclause;
+        String query1 = "select r.resid,r.username,r.fname,r.date,r.stime,r.etime, " +
+                "r.noshow,r.violation " +
+                "from reservation as r " +
+                "INNER JOIN facility as f on r.fname = f.name " +
+                "INNER JOIN facility_type as ft on f.fdesc = ft.fdesc " +
+                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? ";
+
+        String query2 = "select r.resid,r.username,r.fname,r.date,r.stime,r.etime, " +
+                "r.noshow,r.violation " +
+                "from reservation as r " +
+                "INNER JOIN facility as f on r.fname = f.name " +
+                "INNER JOIN facility_type as ft on f.fdesc = ft.fdesc " +
+                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? " +
+                "and username = ?";
+
+        if(uname.equals("")){
+            query = query1;
+            whereclause = new String[]{rDate, rTime, rTime, fdesc};
+//            whereclause = new String[]{rDate, fdesc};
+        }else{
+            query = query2;
+            whereclause = new String[]{rDate, rTime, rTime, fdesc, uname};
+        }
+
+        Cursor c = db.rawQuery(query,whereclause);
+        if  (c.getCount() > 0){
+            c.moveToFirst();
+            return c;
+        }else{
+            return null;
+        }
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="?android:attr/selectableItemBackground"
+android:clickable="true"
+android:focusable="true"
+android:orientation="vertical"
+android:paddingBottom="@dimen/row_padding_vertical"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/row_padding_vertical">
+
+<TextView
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:textColor="@color/title"
+    android:textSize="16dp"
+    android:textStyle="bold" />
+
+<TextView
+    android:id="@+id/type"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/name" />
+<TextView
+    android:id="@+id/tvdate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/type"/>
+<TextView
+    android:id="@+id/tvstime"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_toRightOf="@id/tvdate"
+    android:layout_below="@id/type"/>
+
+<TextView
+    android:id="@+id/delimt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/type"
+    android:layout_marginLeft="10dp"
+    android:layout_toRightOf="@id/tvstime"
+    android:text="to" />
+<TextView
+    android:id="@+id/tvetime"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_toRightOf="@id/delimt"
+    android:layout_below="@id/type"/>
+
+    <TextView
+        android:id="@+id/tvuname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/tvdate"/>
+
+
+</RelativeLayout>

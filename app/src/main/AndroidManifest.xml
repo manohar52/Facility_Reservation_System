@@ -12,12 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminUserDetail"
-            android:parentActivityName=".AdminUserList"></activity>
-        <activity android:name=".AdminUserList"
-            android:parentActivityName=".AdminSearchUser"/>
-        <activity android:name=".AdminSearchUser"
-            android:parentActivityName=".AdminHomeScreen"/>
+        <activity android:name=".FMReservationDetail"
+            android:parentActivityName=".FMViewReseervationList"></activity>
+        <activity android:name=".FMSearchReservations"
+            android:parentActivityName=".FacilityManagerHomeScreen"/>
+        <activity android:name=".FMViewReseervationList"
+            android:parentActivityName=".FMSearchReservations"/>
+        <activity
+            android:name=".AdminUserDetail"
+            android:parentActivityName=".AdminUserList" />
+        <activity
+            android:name=".AdminUserList"
+            android:parentActivityName=".AdminSearchUser" />
+        <activity
+            android:name=".AdminSearchUser"
+            android:parentActivityName=".AdminHomeScreen" />
         <activity
             android:name=".NoShowViolation"
             android:parentActivityName=".UserHomeScreen" />

@@ -22,15 +22,15 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility_manager_home_screen);
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String username = settings.getString("username","");
         SysUser currSysUser = SysUser.getUser(username, getApplicationContext());
 
-        Intent intent = getIntent();
-//        String username = intent.getStringExtra("username");
         TextView textv = findViewById(R.id.etusername);
-
         textv.append(username);
+
+
 
 
         final Button btprofile = findViewById(R.id.btprofile);
@@ -38,6 +38,15 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button btreslist = findViewById(R.id.btreslist);
+        btreslist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FMSearchReservations.class);
                 startActivity(intent);
             }
         });
