@@ -6,14 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import DatabaseHelper.DatabaseHelper;
-import model.Facility;
+
 import model.Reservation;
 
 public class reservation_doa {
@@ -42,6 +36,8 @@ public class reservation_doa {
         cv.put("date",res.getDate());
         cv.put("stime",res.getStime());
         cv.put("etime",res.getEtime());
+        cv.put("noshow",Integer.parseInt(res.getNoshow()));
+        cv.put("violation",Integer.parseInt(res.getViolation()));
         long resid = db.insert("reservation",null,cv);
         return resid;
 

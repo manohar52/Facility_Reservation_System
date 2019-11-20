@@ -144,4 +144,17 @@ public class facility_doa {
             return true;
         }
     }
+
+    public void update(Facility f) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        ContentValues cv = new ContentValues();
+        String[] args = { String.valueOf(f.getName())};
+
+
+        cv.put("availability",f.getAvailability());
+        cv.put("status",f.getStatus());
+
+        int ar = db.update("facility",cv,"name = ?",args);
+    }
 }

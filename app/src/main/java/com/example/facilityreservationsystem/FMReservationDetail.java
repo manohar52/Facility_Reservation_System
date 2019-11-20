@@ -58,10 +58,12 @@ public class FMReservationDetail extends AppCompatActivity {
             if(res.getNoshow().equals("1")){
               cbnoshow.setChecked(true);
               btnoshow.setEnabled(false);
+              btviolation.setEnabled(false);
             }
             if(res.getViolation().equals("1")){
                 cbviolation.setChecked(true);
                 btviolation.setEnabled(false);
+                btnoshow.setEnabled(false);
             }
         }
 
@@ -77,6 +79,8 @@ public class FMReservationDetail extends AppCompatActivity {
                         res.setNoshow("1");
                         res.update();
                         cbnoshow.setChecked(true);
+                        btnoshow.setEnabled(false);
+                        btviolation.setEnabled(false);
                         Toast toast = Toast.makeText(getApplicationContext(), "No-show Reported!", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();
@@ -96,6 +100,8 @@ public class FMReservationDetail extends AppCompatActivity {
                         res.setViolation("1");
                         res.update();
                         cbviolation.setChecked(true);
+                        btnoshow.setEnabled(false);
+                        btviolation.setEnabled(false);
                         Toast toast = Toast.makeText(getApplicationContext(), "Violation Reported!", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,6 +35,8 @@ public class Reservation {
         this.setDate(date);
         this.setStime(stime);
         this.setEtime(etime);
+        this.setNoshow("0");
+        this.setViolation("0");
     }
 public static Reservation getInstance(long id){
     Iterator iter = resList.iterator();
@@ -145,7 +146,12 @@ public static Reservation getInstance(long id){
     }
 
     public void setNoshow(String noshow) {
-        this.noshow = noshow;
+        if(noshow == null){
+            this.noshow = "0";
+        }
+        else{
+            this.noshow = noshow;
+        }
     }
 
     public String getViolation() {
@@ -153,7 +159,13 @@ public static Reservation getInstance(long id){
     }
 
     public void setViolation(String violation) {
-        this.violation = violation;
+
+        if(violation == null){
+            this.violation = "0";
+        }
+        else {
+            this.violation = violation;
+        }
     }
 
     public void save() {

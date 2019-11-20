@@ -79,6 +79,9 @@ public class Facility {
 
 
     public boolean isAvailable(String date, String time){
+        if(getAvailability() == 0){
+            return false;
+        }
         facility_doa fdoa = facility_doa.getInstance(ct);
         if(fdoa.checkAvailability(this, date, time)){
             return true;
@@ -115,6 +118,15 @@ public class Facility {
         return availability;
     }
 
+    public String getAvailabilityString(){
+        if(availability == 1){
+            return "Available";
+        }
+        else{
+            return "Not Available";
+        }
+    }
+
     public void setAvailability(int availability) {
         this.availability = availability;
     }
@@ -141,5 +153,10 @@ public class Facility {
 
     public void setWing(String wing) {
         this.wing = wing;
+    }
+
+    public void update() {
+        facility_doa fdoa = facility_doa.getInstance(ct);
+        fdoa.update(this);
     }
 }

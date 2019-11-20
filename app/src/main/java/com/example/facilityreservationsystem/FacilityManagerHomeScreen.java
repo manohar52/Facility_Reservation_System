@@ -51,6 +51,15 @@ public class FacilityManagerHomeScreen extends AppCompatActivity {
             }
         });
 
+        final Button btsearchfac = findViewById(R.id.btsearchfac);
+        btsearchfac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FMSearchFacility.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
