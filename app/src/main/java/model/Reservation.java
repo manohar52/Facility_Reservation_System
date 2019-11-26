@@ -105,6 +105,34 @@ public static Reservation getInstance(long id){
         return resList;
     }
 
+    public static List<Reservation> getAllReservationsByDate(Context ct, String currUsername, String rDate, String rTime) {
+
+        reservation_doa rdoa = reservation_doa.getInstance(ct);
+        resList.clear();
+        rTime = timeConvertTo24(rTime);
+        Cursor c = rdoa.getReservationsForByDate(rDate,rTime, currUsername);
+        if(c !=null){
+            do{
+                long resid = c.getLong(c.getColumnIndex("resid"));
+                String fname = c.getString(c.getColumnIndex("fname"));
+                String date = c.getString(c.getColumnIndex("date"));
+                String stime = c.getString(c.getColumnIndex("stime"));
+                String etime = c.getString(c.getColumnIndex("etime"));
+                String ns = c.getString(c.getColumnIndex("noshow"));
+                String vio = c.getString(c.getColumnIndex("violation"));
+                String un = c.getString(c.getColumnIndex("username"));
+
+                Reservation reservation = new Reservation(ct,un,fname,date,stime,etime);
+                reservation.setResId(resid);
+                reservation.setNoshow(ns);
+                reservation.setViolation(vio);
+
+                resList.add(reservation);
+            }while(c.moveToNext());
+        }
+        return resList;
+    }
+
     public long getResId() {
         return resId;
     }
@@ -125,6 +153,9 @@ public static Reservation getInstance(long id){
         return timeConvertTo12(stime);
 //        return stime;
     }
+    public String getStime(boolean val) {
+        return stime;
+    }
 
     public void setStime(String stime) {
 //        this.stime = stime;
@@ -136,10 +167,16 @@ public static Reservation getInstance(long id){
         return timeConvertTo12(etime);
     }
 
+    public String getEtime(boolean val) {
+        return etime;
+    }
+
     public void setEtime(String etime) {
 //        this.etime = etime;
         this.etime = timeConvertTo24(etime);
     }
+
+
 
     public String getNoshow() {
         return noshow;
@@ -196,8 +233,14 @@ public static Reservation getInstance(long id){
         rdoa.updateReservation(this);
     }
 
-    public void update(String newDate, String newStime) {
+    public boolean update(String newDate, String newStime) {
+
+        Facility f = Facility.getInstance(this.facName,context);
+        if (!f.isAvailable(newDate,newStime)){
+            return false;
+        }
         reservation_doa rdoa = reservation_doa.getInstance(context);
+
         this.date = newDate;
         this.stime = newStime;
 
@@ -207,8 +250,6 @@ public static Reservation getInstance(long id){
             Date temp = df.parse(newStime);
             Calendar cal = new GregorianCalendar();
             cal.setTime(temp);
-            String fname = this.getFacName();
-            Facility f = Facility.getInstance(fname,context);
             float interval = f.getFtype().getInterval();
             if ( interval < 1){
                 int min = (int)(interval*60);
@@ -221,16 +262,22 @@ public static Reservation getInstance(long id){
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        this.setStime(stime);
+        this.setEtime(etime);
         rdoa.updateReservation(this);
+        return true;
     }
     public String getNoshowViolationStatus(){
-            if (this.noshow != null){
-                return "No Show";
-            }else if (this.violation != null){
-                return "Violation";
+        String ret = null;
+        if (this.noshow.equals("1") || this.violation.equals("1")) {
+            if(this.noshow.equals("1")){
+                ret = "No Show";
             }
-            return null;
+            if(this.violation.equals("1")){
+                ret = "Violation";
+            }
+        }
+        return ret;
     }
     public void delete(){
         reservation_doa rdoa = reservation_doa.getInstance(context);
@@ -244,7 +291,7 @@ public static Reservation getInstance(long id){
         }
     }
 
-    private static String timeConvertTo24(String time){
+    public static String timeConvertTo24(String time){
         SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
         SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
         try {

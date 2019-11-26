@@ -139,13 +139,8 @@
                 android:id="@+id/btupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update" />
+                android:text="Update Profile" />
 
-            <Button
-                android:id="@+id/btcancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="cancel" />
         </LinearLayout>
     </ScrollView>
 

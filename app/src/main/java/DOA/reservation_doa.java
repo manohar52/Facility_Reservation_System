@@ -34,8 +34,8 @@ public class reservation_doa {
         cv.put("username",res.getUsername());
         cv.put("fname",res.getFacName());
         cv.put("date",res.getDate());
-        cv.put("stime",res.getStime());
-        cv.put("etime",res.getEtime());
+        cv.put("stime",res.getStime(true));
+        cv.put("etime",res.getEtime(true));
         cv.put("noshow",Integer.parseInt(res.getNoshow()));
         cv.put("violation",Integer.parseInt(res.getViolation()));
         long resid = db.insert("reservation",null,cv);
@@ -70,8 +70,8 @@ public class reservation_doa {
 
 
         cv.put("date",(res.getDate()));
-        cv.put("stime",res.getStime());
-        cv.put("etime",res.getEtime());
+        cv.put("stime",res.getStime(true));
+        cv.put("etime",res.getEtime(true));
         cv.put("noshow",res.getNoshow());
         cv.put("violation",res.getViolation());
         int ar = db.update("reservation",cv,"resid = ?",args);
@@ -97,23 +97,24 @@ public class reservation_doa {
                 "from reservation as r " +
                 "INNER JOIN facility as f on r.fname = f.name " +
                 "INNER JOIN facility_type as ft on f.fdesc = ft.fdesc " +
-                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? ";
+//                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? ";
+                "where r.date = ? and r.etime >= ? and f.fdesc = ? ";
 
         String query2 = "select r.resid,r.username,r.fname,r.date,r.stime,r.etime, " +
                 "r.noshow,r.violation " +
                 "from reservation as r " +
                 "INNER JOIN facility as f on r.fname = f.name " +
                 "INNER JOIN facility_type as ft on f.fdesc = ft.fdesc " +
-                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? " +
+//                "where r.date = ? and r.stime <= ? and r.etime >= ? and f.fdesc = ? " +
+                "where r.date = ? and r.etime >= ? and f.fdesc = ? " +
                 "and username = ?";
 
         if(uname.equals("")){
             query = query1;
-            whereclause = new String[]{rDate, rTime, rTime, fdesc};
-//            whereclause = new String[]{rDate, fdesc};
+            whereclause = new String[]{rDate, rTime, fdesc};
         }else{
             query = query2;
-            whereclause = new String[]{rDate, rTime, rTime, fdesc, uname};
+            whereclause = new String[]{rDate, rTime, fdesc, uname};
         }
 
         Cursor c = db.rawQuery(query,whereclause);
@@ -123,5 +124,29 @@ public class reservation_doa {
         }else{
             return null;
         }
+    }
+
+    public Cursor getReservationsForByDate(String rDate, String rTime, String uname) {
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] whereclause;
+
+        String query = "select * " +
+                "from reservation" +
+//                " where date = ? and stime <= ? and etime >= ? " +
+                " where date = ? and etime >= ? " +
+                "and username = ?";
+
+            whereclause = new String[]{rDate, rTime, uname};
+
+        Cursor c = db.rawQuery(query,whereclause);
+        if  (c.getCount() > 0){
+            c.moveToFirst();
+            return c;
+        }else{
+            return null;
+        }
+
     }
 }

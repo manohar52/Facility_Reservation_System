@@ -35,11 +35,15 @@ public class Payment extends AppCompatActivity {
                 Reservation reservation = new Reservation(getApplicationContext(),username,bundle.getString("FACILITY"),bundle.getString("DATE"),bundle.getString("STIME"),bundle.getString("ETIME"));
                 reservation.save();
 
+                Intent intent = new Intent(getApplicationContext(),UserNewReservation.class);
+                Bundle newbundle = new Bundle();
+                newbundle.putString("RESID",Long.valueOf(reservation.getResId()).toString());
+                intent.putExtras(newbundle);
+
                 Toast toast = Toast.makeText(getApplicationContext(), "Reservation sucessfully created!", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
 
-                Intent intent = new Intent(getApplicationContext(),UserFacilitySearch.class);
                 startActivity(intent);
             }
         });

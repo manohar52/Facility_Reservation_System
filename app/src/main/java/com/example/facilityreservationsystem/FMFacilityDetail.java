@@ -53,7 +53,7 @@ public class FMFacilityDetail extends AppCompatActivity {
             ab.showOKDialog(FMFacilityDetail.this, new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(cbstatus.isSelected()){
+                if(cbstatus.isChecked()){
                     f.setAvailability(1);
                 }else{
                     f.setAvailability(0);
@@ -65,12 +65,7 @@ public class FMFacilityDetail extends AppCompatActivity {
                 toast.show();
               }
             });
-
-
             }
         });
-
-
-
     }
 }

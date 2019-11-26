@@ -2,6 +2,7 @@ package com.example.facilityreservationsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import model.Facility;
 import model.Reservation;
+import utils.AlertBox;
 
 public class ReservationDetail extends AppCompatActivity {
 
@@ -54,28 +56,43 @@ public class ReservationDetail extends AppCompatActivity {
         btdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                res.delete();
-                Toast toast = Toast.makeText(getApplicationContext(), "Reservation Deleted!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-                Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
-                startActivity(intent);
-            }
+        AlertBox ab = new AlertBox("Do you want to delete the reservation?");
+        ab.showOKDialog(ReservationDetail.this, new DialogInterface.OnClickListener(){
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            res.delete();
+            Toast toast = Toast.makeText(getApplicationContext(), "Reservation Cancelled!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
+            startActivity(intent);
+          }
         });
+            }
+    });
 
         btupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newDate = String.valueOf(etdate.getText());
-                String newStime = String.valueOf(etstime.getText());
-                res.update(newDate,newStime);
+                AlertBox ab = new AlertBox("Do you wish to update the reservation details?");
+                ab.showOKDialog(ReservationDetail.this, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newDate = String.valueOf(etdate.getText());
+                        String newStime = String.valueOf(etstime.getText());
+                        boolean r = res.update(newDate, newStime);
+                        if (r) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Reservation Modified!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.show();
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Reservation Cannot be modified. \n Slot not avaiable for this time. \n Check with differnt date or time!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.show();
+                        }
+                    }
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Reservation Modified!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-//                Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
-//                startActivity(intent);
+                });
             }
         });
     }

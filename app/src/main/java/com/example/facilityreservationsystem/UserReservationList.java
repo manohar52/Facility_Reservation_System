@@ -33,11 +33,30 @@ public class UserReservationList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reservation_list);
-        recyclerView = (RecyclerView) findViewById(R.id.rvuserres);
+
+        final String rDate,rTime;
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor editor = settings.edit();
+        SharedPreferences.Editor editor = settings.edit();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null) {
+            rDate = bundle.getString("rdate");
+            rTime = bundle.getString("rtime");
+
+            editor.putString("rdate", rDate);
+            editor.putString("rtime", rTime);
+            editor.commit();
+        }else{
+            rDate = settings.getString("rdate","");
+            rTime = settings.getString("rtime","");
+        }
+        recyclerView = (RecyclerView) findViewById(R.id.rvuserres);
         String currUsername = settings.getString("username"," ");
-        final List<Reservation> resList = Reservation.getAllReservations(getApplicationContext(),currUsername);
+        final List<Reservation> resList;
+        if (rDate.equals("") || rTime.equals("")){
+            resList = Reservation.getAllReservations(getApplicationContext(),currUsername);
+        }else{
+            resList = Reservation.getAllReservationsByDate(getApplicationContext(),currUsername,rDate,rTime);
+        }
        if(resList.isEmpty()){
            Toast toast = Toast.makeText(getApplicationContext(), "No Reservations Found", Toast.LENGTH_SHORT);
            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -48,7 +67,11 @@ public class UserReservationList extends AppCompatActivity {
             public int compare(Object o1, Object o2) {
                 Reservation r1 = (Reservation) o1;
                 Reservation r2 = (Reservation) o2;
-                return r1.getDate().compareTo(r2.getDate());
+                String t1 = Reservation.timeConvertTo24(r1.getStime());
+                String t2 = Reservation.timeConvertTo24(r2.getStime());
+
+                return t1.compareTo(t2);
+//                return r1.getStime().compareTo(r2.getStime());
             }
         });
         mAdapter = new userreservationadapter(resList);

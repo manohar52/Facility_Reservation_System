@@ -119,7 +119,7 @@ public class user_doa {
         String sqlTables = "user";
         qb.setTables(sqlTables);
 
-        qb.appendWhere("lname = \"" + lname + "\"");
+        qb.appendWhere("lname LIKE \"%" + lname + "%\"");
         Cursor c = qb.query(db, sqlSelect, null, null,
                 null, null, null);
         if  (c.getCount() > 0){

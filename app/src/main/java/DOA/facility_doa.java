@@ -13,6 +13,7 @@ import java.util.Set;
 
 import DatabaseHelper.DatabaseHelper;
 import model.Facility;
+import model.Reservation;
 import model.SysUser;
 
 public class facility_doa {
@@ -133,6 +134,8 @@ public class facility_doa {
 
         String[] sqlSelect = {"resid"};
         String sqlTables = "reservation";
+
+        time = Reservation.timeConvertTo24(time);
 
         qb.setTables(sqlTables);
         qb.appendWhere("fname = \""+facility.getName()+"\" and date = \"" + date + "\" and stime <= \""+time+"\" and etime >= \""+time+"\"");

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Payment">
+    tools:context=".FMUserDetail">
 
 <RelativeLayout
     android:id="@+id/linear"
@@ -14,6 +14,19 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
+<TextView
+    android:id="@+id/tvusername"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="55dp"
+    android:layout_marginRight="55dp"
+    android:text="TextView"
+    android:textAllCaps="true"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/linear" />
 
 <ScrollView
     android:layout_width="0dp"
@@ -21,7 +34,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/linear">
+    app:layout_constraintTop_toBottomOf="@id/tvusername">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,67 +43,67 @@
         android:layout_marginRight="55dp"
         android:orientation="vertical">
 
+
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Card" />
+            android:text="First Name" />
 
-        <EditText
-            android:id="@+id/etcard"
+        <TextView
+            android:id="@+id/tvfname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
-            android:maxLength="12" />
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Type" />
-
-        <Spinner
-            android:id="@+id/sptype"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/cardtype" />
+            android:text="Last Name" />
 
         <TextView
-            android:id="@+id/textView38"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Expiration Date" />
-
-        <EditText
-            android:id="@+id/editText"
+            android:id="@+id/tvlname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="mm/dd/yyyy"
-            android:inputType="date" />
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Security code" />
+            android:text="UTA ID" />
 
-        <EditText
-            android:id="@+id/editText4"
+        <TextView
+            android:id="@+id/tvutaid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
-            android:maxLength="3" />
+            android:inputType="number" />
 
-        <Button
-            android:id="@+id/btpay"
+        <TextView
+            android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm Reservation" />
+            android:text="No of Now shows" />
+
+        <TextView
+            android:id="@+id/tvnoshow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No of Violations" />
+
+        <TextView
+            android:id="@+id/tvvio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

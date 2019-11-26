@@ -48,32 +48,38 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            currUser = SysUser.getUser(username.getText().toString(),getApplicationContext());
-            Intent intent;
-            boolean status = currUser.login(password.getText().toString());
-                if(status){ //Login Successful
-                    Toast toast = Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG);
+                currUser = SysUser.getUser(username.getText().toString(), getApplicationContext());
+                if (currUser == null) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "User not Found!", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
-                    switch (currUser.getRole()){
-                        case "AD":
-                            intent = new Intent(getApplicationContext(), AdminHomeScreen.class);
-                            break;
-                        case "UR":
-                            intent = new Intent(getApplicationContext(), UserHomeScreen.class);
-                            break;
-                        case "FM":
-                            intent = new Intent(getApplicationContext(), FacilityManagerHomeScreen.class);
-                            break;
-                        default:
-                            throw new IllegalStateException("Unexpected value: " + currUser.getRole());
+                } else {
+                    Intent intent;
+                    boolean status = currUser.login(password.getText().toString());
+                    if (status) { //Login Successful
+                        Toast toast = Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                        switch (currUser.getRole()) {
+                            case "AD":
+                                intent = new Intent(getApplicationContext(), AdminHomeScreen.class);
+                                break;
+                            case "UR":
+                                intent = new Intent(getApplicationContext(), UserHomeScreen.class);
+                                break;
+                            case "FM":
+                                intent = new Intent(getApplicationContext(), FacilityManagerHomeScreen.class);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + currUser.getRole());
+                        }
+                        intent.putExtra("username", username.getText().toString());
+                        startActivity(intent);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Incorrect credentials! \n Please Try again", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
                     }
-                    intent.putExtra("username", username.getText().toString());
-                    startActivity(intent);
-                }else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "No user found", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
                 }
             }
         });

@@ -51,10 +51,10 @@ public class SysUser {
         if (!users.containsKey(username)) {
             user_doa udao = user_doa.getInstance(ct);
             Cursor c = udao.getUserData(username);
-            String role = c.getString(c.getColumnIndex("role"));
             if (c == null) {
                 return null;
             }
+            String role = c.getString(c.getColumnIndex("role"));
             switch (role) {
                 case "UR":
                     currUser = new User(username);
@@ -82,13 +82,18 @@ public class SysUser {
         List<SysUser> usernames = new ArrayList<>();
         user_doa udoa = user_doa.getInstance(ct);
         Cursor c = udoa.getUsernamesByLastname(lname);
-        do {
-            String uname = c.getString(c.getColumnIndex("username"));
-            SysUser u = SysUser.getUser(uname,ct);
-            usernames.add(u);
+        if (c != null ) {
+            do {
+                String uname = c.getString(c.getColumnIndex("username"));
+                SysUser u = SysUser.getUser(uname, ct);
+                usernames.add(u);
+            }
+            while (c.moveToNext());
+            return usernames;
         }
-        while (c.moveToNext());
-        return usernames;
+        else{
+            return null;
+        }
     }
 
     private void setSessionforUser(){

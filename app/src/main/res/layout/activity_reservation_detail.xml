@@ -129,7 +129,7 @@
                 android:id="@+id/btupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="update reservation" />
+                android:text="Modify reservation" />
 
             <Button
                 android:id="@+id/btdelete"

@@ -88,7 +88,7 @@ public class UserHomeScreen extends AppCompatActivity {
         btres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),UserReservationList.class);
+                Intent intent = new Intent(getApplicationContext(),UserReservationSearch.class);
                 startActivity(intent);
             }
         });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".AdminUserDetail">
 
     <RelativeLayout
         android:id="@+id/linear"
@@ -160,13 +160,13 @@
                 android:id="@+id/btupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update" />
+                android:text="Modify User" />
 
             <Button
                 android:id="@+id/btrevoke"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Revoke" />
+                android:text="Revoke User" />
         </LinearLayout>
     </ScrollView>
 

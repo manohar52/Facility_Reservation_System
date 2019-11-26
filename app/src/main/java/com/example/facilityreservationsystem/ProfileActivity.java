@@ -2,6 +2,7 @@ package com.example.facilityreservationsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import model.SysUser;
+import utils.AlertBox;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -38,7 +40,6 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText permit = findViewById(R.id.etpermit);
 
         final Button btnupdate = findViewById(R.id.btupdate);
-        final Button btncancel = findViewById(R.id.btcancel);
 
         tvusername.setText(username);
         password.setText(currUser.getPassword());
@@ -53,45 +54,28 @@ public class ProfileActivity extends AppCompatActivity {
         btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currUser.setPassword(password.getText().toString());
-                currUser.setFname(fname.getText().toString());
-                currUser.setLname(lname.getText().toString());
-                currUser.setUtaid(Integer.parseInt(utaid.getText().toString()));
-                currUser.setVehicle(vehicle.getText().toString());
-                currUser.setPhone(Integer.parseInt(phone.getText().toString()));
-                currUser.setParking(Integer.parseInt(permit.getText().toString()));
+        AlertBox ab = new AlertBox("Do you wish to update the profile details?");
+        ab.showOKDialog(ProfileActivity.this, new DialogInterface.OnClickListener(){
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
 
-                currUser.updateProfile(getApplicationContext());
+            currUser.setPassword(password.getText().toString());
+            currUser.setFname(fname.getText().toString());
+            currUser.setLname(lname.getText().toString());
+            currUser.setUtaid(Integer.parseInt(utaid.getText().toString()));
+            currUser.setVehicle(vehicle.getText().toString());
+            currUser.setPhone(Integer.parseInt(phone.getText().toString()));
+            currUser.setParking(Integer.parseInt(permit.getText().toString()));
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-//                finish();
-            }
+            currUser.updateProfile(getApplicationContext());
+
+            Toast toast = Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+          }
         });
-
-        btncancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                switch (currUser.getRole()){
-                    case "AD":
-                        intent = new Intent(getApplicationContext(),AdminHomeScreen.class);
-                        break;
-                    case "UR":
-                        intent = new Intent(getApplicationContext(),UserHomeScreen.class);
-                        break;
-                    case "FM":
-                        intent = new Intent(getApplicationContext(),FacilityManagerHomeScreen.class);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + currUser.getRole());
-                }
-
-                startActivity(intent);
 
             }
         });
-
     }
 }

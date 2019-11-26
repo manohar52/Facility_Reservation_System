@@ -12,65 +12,75 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FMFacilityDetail"
-            android:parentActivityName=".FMFacilityList"></activity>
+        <activity android:name=".UserNewReservation" android:label="Reservation Created"
+            android:parentActivityName=".UserHomeScreen"></activity>
         <activity
-            android:name=".FMFacilityList"
+            android:name=".UserReservationSearch" android:label="Search Reservation"
+            android:parentActivityName=".UserHomeScreen" />
+        <activity
+            android:name=".FMUserDetail" android:label="User Detail"
+            android:parentActivityName=".AdminUserDetail" />
+        <activity
+            android:name=".FMFacilityDetail" android:label="Facility Detail"
+            android:parentActivityName=".FMFacilityList" />
+        <activity
+            android:name=".FMFacilityList" android:label="Facility List"
             android:parentActivityName=".FMSearchFacility" />
         <activity
-            android:name=".FMSearchFacility"
+            android:name=".FMSearchFacility" android:label="Facility Search"
             android:parentActivityName=".FacilityManagerHomeScreen" />
         <activity
-            android:name=".FMReservationDetail"
+            android:name=".FMReservationDetail" android:label="Reservation Detail"
             android:parentActivityName=".FMViewReseervationList" />
         <activity
-            android:name=".FMSearchReservations"
+            android:name=".FMSearchReservations" android:label="Search Reservations"
             android:parentActivityName=".FacilityManagerHomeScreen" />
         <activity
-            android:name=".FMViewReseervationList"
+            android:name=".FMViewReseervationList" android:label="Reservation List"
             android:parentActivityName=".FMSearchReservations" />
         <activity
-            android:name=".AdminUserDetail"
+            android:name=".AdminUserDetail" android:label="User Details"
             android:parentActivityName=".AdminUserList" />
         <activity
-            android:name=".AdminUserList"
+            android:name=".AdminUserList" android:label="User List"
             android:parentActivityName=".AdminSearchUser" />
         <activity
-            android:name=".AdminSearchUser"
+            android:name=".AdminSearchUser" android:label="User Search"
             android:parentActivityName=".AdminHomeScreen" />
         <activity
-            android:name=".NoShowViolation"
+            android:name=".NoShowViolation" android:label="No-Show Violation list"
             android:parentActivityName=".UserHomeScreen" />
         <activity
-            android:name=".NoShowViolationDetail"
+            android:name=".NoShowViolationDetail" android:label="No-Show Violation Detail"
             android:parentActivityName=".NoShowViolation" />
         <activity
-            android:name=".ReservationDetail"
-            android:parentActivityName=".UserHomeScreen" />
+            android:name=".ReservationDetail" android:label="Reservation Detail"
+            android:parentActivityName=".UserReservationList" />
         <activity
-            android:name=".UserReservationList"
-            android:parentActivityName=".UserHomeScreen" />
+            android:name=".UserReservationList" android:label="My Reservations"
+            android:parentActivityName=".UserReservationSearch" />
         <activity
-            android:name=".Payment"
+            android:name=".Payment" android:label="Reservation Conformation"
             android:parentActivityName=".FacilityDetailForUser" />
         <activity
-            android:name=".FacilityDetailForUser"
+            android:name=".FacilityDetailForUser" android:label="Reservation Detail"
             android:parentActivityName=".AvailableFacilityList" />
         <activity
-            android:name=".AvailableFacilityList"
+            android:name=".AvailableFacilityList" android:label="Available Facilities"
             android:parentActivityName=".UserFacilitySearch" />
         <activity
-            android:name=".UserFacilitySearch"
+            android:name=".UserFacilitySearch" android:label="Request Reservation"
             android:parentActivityName=".UserHomeScreen" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".ProfileActivity" android:label="User Profile"
             android:parentActivityName=".UserHomeScreen" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".RegisterActivity" android:label="Register"
             android:parentActivityName=".LoginActivity" />
-        <activity android:name=".FacilityManagerHomeScreen" />
-        <activity android:name=".AdminHomeScreen" />
-        <activity android:name=".UserHomeScreen" />
+        <activity android:name=".FacilityManagerHomeScreen" android:label="Facility Manager Home"/>
+        <activity android:name=".AdminHomeScreen" android:label="Admin Home"/>
+        <activity android:name=".UserHomeScreen"
+            android:label="User Home"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

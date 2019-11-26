@@ -27,8 +27,9 @@ public class AdminUserDetail extends AppCompatActivity {
         setContentView(R.layout.activity_admin_user_detail);
 
         Bundle bundle = getIntent().getExtras();
-        final String uname = bundle.getString("username");
-        final SysUser currUser = SysUser.getUser(uname,getApplicationContext());
+        final String uname = bundle.getString("SUSER");
+
+        final SysUser selUser = SysUser.getUser(uname,getApplicationContext());
 
         final TextView tvusername = findViewById(R.id.tvusername);
 
@@ -50,13 +51,13 @@ public class AdminUserDetail extends AppCompatActivity {
 
         tvusername.setText(uname);
 
-        fname.setText(currUser.getFname());
-        lname.setText(currUser.getLname());
-        utaid.setText((String.valueOf(currUser.getUtaid())));
-        vehicle.setText(currUser.getVehicle());
-        phone.setText(String.valueOf(currUser.getPhone()));
-        permit.setText(String.valueOf(currUser.getParking()));
-        switch (currUser.getRole()){
+        fname.setText(selUser.getFname());
+        lname.setText(selUser.getLname());
+        utaid.setText((String.valueOf(selUser.getUtaid())));
+        vehicle.setText(selUser.getVehicle());
+        phone.setText(String.valueOf(selUser.getPhone()));
+        permit.setText(String.valueOf(selUser.getParking()));
+        switch (selUser.getRole()){
             case "UR":
                 sprole.setSelection(0);
                 break;
@@ -68,16 +69,16 @@ public class AdminUserDetail extends AppCompatActivity {
                 break;
         }
 
-        noshow.setText(Integer.valueOf(currUser.getNoOfNoShows()).toString());
-        vio.setText(Integer.valueOf(currUser.getNoOfViolations()).toString());
+        noshow.setText(Integer.valueOf(selUser.getNoOfNoShows()).toString());
+        vio.setText(Integer.valueOf(selUser.getNoOfViolations()).toString());
 
-        if(currUser.getRevoked().equals("1")){
+        if(selUser.getRevoked().equals("1")){
             btnrevoke.setTag(1);
-            btnrevoke.setText("Un-Revoke");
+            btnrevoke.setText("Un-Revoke User");
 
         }else{
             btnrevoke.setTag(0);
-            btnrevoke.setText("Revoke");
+            btnrevoke.setText("Revoke User");
         }
 
         btnupdate.setOnClickListener(new View.OnClickListener() {
@@ -93,16 +94,16 @@ public class AdminUserDetail extends AppCompatActivity {
                         Admin admin = (Admin) SysUser.getUser(username, getApplicationContext());
                         switch(sprole.getSelectedItem().toString()){
                             case "User":
-                                admin.setRole("UR");
-                                admin.updateUser(uname,"UR");
+//                                admin.setRole("UR");
+                                admin.updateUser(uname,"UR",getApplicationContext());
                                 break;
                             case "Facility Manager":
-                                admin.setRole("FM");
-                                admin.updateUser(uname,"FM");
+//                                admin.setRole("FM");
+                                admin.updateUser(uname,"FM",getApplicationContext());
                                 break;
                             case "Admin":
-                                admin.setRole("AD");
-                                admin.updateUser(uname,"AD");
+//                                admin.setRole("AD");
+                                admin.updateUser(uname,"AD",getApplicationContext());
                                 break;
                         }
                         Toast toast = Toast.makeText(getApplicationContext(), "Update Sucessful", Toast.LENGTH_SHORT);
@@ -129,16 +130,16 @@ public class AdminUserDetail extends AppCompatActivity {
                         admin.revokeUser(uname);
 
                         if (btnrevoke.getTag().toString().equals("1")) {
-                            currUser.setRevoked("0");
+                            selUser.setRevoked("0");
                             btnrevoke.setTag(0);
-                            btnrevoke.setText("Revoke");
+                            btnrevoke.setText("Revoke User");
                             Toast toast = Toast.makeText(getApplicationContext(), "System User unrevoked", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             toast.show();
                         } else {
-                            currUser.setRevoked("1");
+                            selUser.setRevoked("1");
                             btnrevoke.setTag(1);
-                            btnrevoke.setText("Un-Revoke");
+                            btnrevoke.setText("Un-Revoke User");
                             Toast toast = Toast.makeText(getApplicationContext(), "System User revoked", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             toast.show();
